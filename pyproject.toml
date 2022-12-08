@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "vo2max-tracker"
+version = "0.1.0"
+description = "VO2Max reader for Garmin devices"
+authors = ["Javier Albiero <51678384+jalbiero@users.noreply.github.com>"]
+license = "MIT"
+
+[tool.autopep8]
+max_line_length = 120
+#ignore = "E501,W6"  # or ["E501", "W6"]
+in-place = true
+recursive = true
+#aggressive = 3
+
+[tool.isort]
+line_length = 120
+
+[tool.poetry.scripts]
+app = "vo2max_tracker.main:main"
+# lint = "pylint vo2max_reader"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+garmin-fit-sdk = "^0.94.3"
+matplotlib = "^3.6.1"
+mplcursors = "^0.5.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+autopep8 = "^1.7.0"
+mypy = "^0.982"
+pandas = "^1.5.1"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
