@@ -1,5 +1,5 @@
 import logging
-from typing import Union
+from typing import Optional
 
 
 class BaseConfig:
@@ -25,7 +25,7 @@ class BaseConfig:
 
     # If you have a high DPI monitor and the resulting chart is too small
     # you can set this property to 200 (2x zoom) or greater
-    DPI: Union[int, None] = None
+    DPI: Optional[int] = None
 
     # Scatter chart instead of connected points?
     SCATTER: bool = False

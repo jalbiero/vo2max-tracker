@@ -1,8 +1,9 @@
-from datetime import date
-from typing import Any, Callable, Dict, List, TypeVar, Union
+from datetime import date, datetime
+from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
 
 import mplcursors
 from matplotlib import pyplot as plt
+from matplotlib import text
 from matplotlib.dates import DateFormatter
 from mplcursors import Cursor
 
@@ -24,8 +25,8 @@ def _get_plot_data(config: BaseConfig) -> _PlotDataDict:
 
     fit: FitData
     for fit in fit_data_provider(config):
-        if fit.vo2max > 0:
-            sport: str = f"{fit.sport}-{fit.sub_sport}" if config.GROUP_BY_SUBSPORT else fit.sport
+        if fit.vo2max is not None and fit.vo2max > 0:
+            sport: str = f"{fit.sport}-{fit.sub_sport}" if config.GROUP_BY_SUBSPORT else f"{fit.sport}"
 
             if sport not in plot_dict:
                 plot_dict[sport] = [fit]
@@ -38,20 +39,27 @@ def _get_plot_data(config: BaseConfig) -> _PlotDataDict:
     # data must be sorted by time
     if not config.SCATTER:
         for data in plot_dict.values():
-            data.sort(key=lambda d: d.start_time)
+            data.sort(key=lambda d: datetime(2000, 1, 1) if d.start_time is None else d.start_time)
 
     return plot_dict
 
 
-def _na(value: Union[_T, None], fmt: str = None) -> Union[_T, str]:
+def _na(value: Optional[_T], fmt: Optional[str] = None) -> Union[_T, str]:
     """
     Returns the value (with its optional format) if value is not None, otherwise "N/A"
     """
 
     if value is None:
         return "N/A"
-    else:
-        return value if fmt is None else "{val:{fmt}}".format(val=value, fmt=fmt)
+
+    return value if fmt is None else "{val:{fmt}}".format(val=value, fmt=fmt)
+
+
+def _na_date(value: Optional[date], fmt: str = "%c") -> str:
+    if value is None:
+        return _na(value)
+
+    return _na(value.strftime(fmt))
 
 
 def plot(config: BaseConfig) -> None:
@@ -69,14 +77,14 @@ def plot(config: BaseConfig) -> None:
     do_plot: Callable[..., Any] = ax.scatter if config.SCATTER else ax.plot
 
     # Plot the data
-    artist_dict: Dict[any, _FitDataList] = {}
+    artist_dict: Dict[Any, _FitDataList] = {}
     for sport, data in _get_plot_data(config).items():
-        dates: List[date] = [d.start_time for d in data]
-        vo2maxs: List[float] = [d.vo2max for d in data]
+        dates: List[Optional[date]] = [d.start_time for d in data]
+        vo2maxs: List[Optional[float]] = [d.vo2max for d in data]
 
-        artist: any = do_plot(dates, vo2maxs, label=sport, marker="8")
+        artist: Any = do_plot(dates, vo2maxs, label=sport, marker="8")
 
-        artist_key: any = artist if config.SCATTER else artist[0]
+        artist_key: Any = artist if config.SCATTER else artist[0]
         artist_dict[artist_key] = data
 
     # Prepare tooltip information
@@ -87,12 +95,21 @@ def plot(config: BaseConfig) -> None:
         if sel.artist in artist_dict:
             data_index: int = round(sel.index)
             data = artist_dict[sel.artist][data_index]
-            
-            sel.annotation.set_text(
+
+            ann: text.Text = sel.annotation
+            #ann.set_bbox(dict(facecolor='red', alpha=0.9, edgecolor='red'))
+            ann.set_bbox(dict(alpha=0.9))
+
+            # ann.set_backgroundcolor('red')
+            # ann.set_color('black')
+            # ann.set_alpha(1)
+            ann.set_fontweight('bold')
+
+            ann.set_text(
                 f"[{_na(data.sport)}:{_na(data.sub_sport)}]\n"
                 "\n"
                 f"VO2Max = {_na(data.vo2max, '.4f')}\n"
-                f"Date = {_na(data.start_time.strftime('%c'))}\n"
+                f"Date = {_na_date(data.start_time)}\n"
                 "\n"
                 f"Duration = {_na(data.duration)}\n"
                 f"Distance = {_na(data.distance)}\n"

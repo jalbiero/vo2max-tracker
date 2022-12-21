@@ -2,11 +2,11 @@ import json
 import logging
 from abc import ABC, abstractmethod
 from asyncio.log import logger
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from io import BytesIO
 from os import path, sep
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from zipfile import ZipFile, ZipInfo
 
 from garmin_fit_sdk import Stream
@@ -61,6 +61,12 @@ class ZipFitReader(FitReader):
         raise FitReaderError(f"{file_path} does not contain a .fit file")
 
 
+@dataclass
+class CacheData:
+    version: str  # future usage
+    fit_data: Dict[str, Any]
+
+
 class FitCacheReader(FitReader):
     """
     Cache proxy reader (Fit SDK is really slow in Python so a cache is mandatory)
@@ -82,26 +88,28 @@ class FitCacheReader(FitReader):
         self._write_cache(cache_path, data)
         return data
 
-    def _write_cache(self, cache_path: str, data: FitData) -> None:
+    def _write_cache(self, cache_path: str, fit_data: FitData) -> None:
         logger.info("Write json cache to %s", cache_path)
         with open(cache_path, "w") as cache:
-            data_dict: Dict[str, Any] = asdict(data)
-
-            # Add version (future usage)
-            data_dict["_version"] = __version__
+            cache_data: CacheData = CacheData(__version__, asdict(fit_data))
 
             # Dates will be serialized as strings (ISO format)
-            cache.write(json.dumps(data_dict, default=str))
+            cache.write(json.dumps(asdict(cache_data), default=str))
 
     def _read_cache(self, cache_path: str) -> FitData:
         logger.info("Read json cache from %s", cache_path)
+
         with open(cache_path, "r") as cache:
-            data = FitData(**json.load(cache))
+            cache_data: CacheData = CacheData(**json.load(cache))
+            fit_data: FitData = FitData(**cache_data.fit_data)
 
-            # Date was read it as string, reconvert it to datetime
-            data.start_time = datetime.fromisoformat(str(data.start_time))
+            # TODO Validate cache version
 
-            return data
+            # Dates were read as string, reconvert them to datetime
+            fit_data.start_time = datetime.fromisoformat(str(fit_data.start_time))
+            fit_data.end_time = datetime.fromisoformat(str(fit_data.end_time))
+
+            return fit_data
 
 
 class ReaderManager:
