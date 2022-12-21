@@ -6,7 +6,7 @@ from dataclasses import asdict
 from datetime import datetime
 from io import BytesIO
 from os import path, sep
-from typing import Dict, List
+from typing import Any, Dict, List
 from zipfile import ZipFile, ZipInfo
 
 from garmin_fit_sdk import Stream
@@ -78,15 +78,14 @@ class FitCacheReader(FitReader):
             logger.info("Cache hit for %s", file_path)
             return self._read_cache(cache_path)
 
-        else:
-            data: FitData = self.__external_reader.read(file_path)
-            self._write_cache(cache_path, data)
-            return data
+        data: FitData = self.__external_reader.read(file_path)
+        self._write_cache(cache_path, data)
+        return data
 
     def _write_cache(self, cache_path: str, data: FitData) -> None:
         logger.info("Write json cache to %s", cache_path)
         with open(cache_path, "w") as cache:
-            data_dict: Dict[str, any] = asdict(data)
+            data_dict: Dict[str, Any] = asdict(data)
 
             # Add version (future usage)
             data_dict["_version"] = __version__
@@ -100,7 +99,7 @@ class FitCacheReader(FitReader):
             data = FitData(**json.load(cache))
 
             # Date was read it as string, reconvert it to datetime
-            data.start_time = datetime.fromisoformat(data.start_time)
+            data.start_time = datetime.fromisoformat(str(data.start_time))
 
             return data
 

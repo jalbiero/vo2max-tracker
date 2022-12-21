@@ -13,7 +13,7 @@ def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
     Returns a lazy sequence of file names (with the specified extensions) in 
     the provided directory
     """
-    
+
     for file in listdir(dir):
         fullname: str = path.join(dir, file)
         if path.isfile(fullname):

@@ -8,8 +8,8 @@ def to_csv(config: BaseConfig, add_header: bool = False):
         print("date, sport, sub sport, vo2max")
 
     fit: FitData
-    for fit in fit_data_provider(config.ACTIVITY_DIR):
-        if fit.vo2max > 0:
+    for fit in fit_data_provider(config):
+        if fit.vo2max is not None and fit.vo2max > 0:
             print(f"{fit.start_time}, {fit.sport}, {fit.sub_sport}, {fit.vo2max}")
 
 
