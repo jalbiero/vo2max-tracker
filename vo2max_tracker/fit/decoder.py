@@ -13,6 +13,9 @@ _FitValueList = List[_FitValueDict]
 _FitMessageDict = Dict[str, _FitValueList]
 
 # Fit access constants
+# TODO This is requires a redesign (maybe a field provider) because constants are not the 
+#      same across devices, especially the ancient ones (I only have FR-920 and FR-920 for testing)
+
 _SPORT_MESSAGE_ID: str = "sport_mesgs"
 _SPORT_FIELD_ID: str = "sport"
 _SPORT_SUB_SPORT_FIELD_ID: str = "sub_sport"

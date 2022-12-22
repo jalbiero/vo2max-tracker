@@ -118,8 +118,11 @@ class ReaderManager:
     """
 
     def __init__(self):
+        raw_fit_reader: RawFitReader = RawFitReader()
+
         self.__strategy: Dict[str, FitReader] = {
-            ".fit": RawFitReader(),
+            ".fit": raw_fit_reader,
+            ".FIT": raw_fit_reader, # Ancient devices like FR-920 use files in capital letters
             ".zip": ZipFitReader(),
         }
 
