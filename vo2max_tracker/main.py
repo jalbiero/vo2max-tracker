@@ -3,9 +3,9 @@ import logging
 import sys
 import traceback
 
-from vo2max_tracker.config import Config
+from vo2max_tracker.config import UserConfig
 from vo2max_tracker.core.chart import plot
-from vo2max_tracker.core.config import BaseConfig
+from vo2max_tracker.core.config import Config
 from vo2max_tracker.core.export import to_csv
 from vo2max_tracker.version import __version__
 
@@ -37,7 +37,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def setup_log(config: BaseConfig) -> None:
+def setup_log(config: Config) -> None:
     logging.basicConfig(filename=config.LOG_FILE,
                         level=config.LOG_LEVEL,
                         format="%(asctime)s %(levelname)8s [%(module)s] %(message)s")
@@ -51,7 +51,7 @@ def setup_log(config: BaseConfig) -> None:
 
 
 def main() -> None:
-    config: BaseConfig = Config()
+    config: UserConfig = UserConfig()
 
     setup_log(config)
 

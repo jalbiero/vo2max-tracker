@@ -7,7 +7,7 @@ from matplotlib import text
 from matplotlib.dates import DateFormatter
 from mplcursors import Cursor
 
-from vo2max_tracker.config import BaseConfig
+from vo2max_tracker.config import Config
 from vo2max_tracker.fit.decoder import FitData
 from vo2max_tracker.fit.provider import fit_data_provider
 
@@ -16,7 +16,7 @@ _FitDataList = List[FitData]
 _PlotDataDict = Dict[str, _FitDataList]
 
 
-def _get_plot_data(config: BaseConfig) -> _PlotDataDict:
+def _get_plot_data(config: Config) -> _PlotDataDict:
     """
     Gets data classified by sport
     """
@@ -62,7 +62,7 @@ def _na_date(value: Optional[date], fmt: str = "%c") -> str:
     return _na(value.strftime(fmt))
 
 
-def plot(config: BaseConfig) -> None:
+def plot(config: Config) -> None:
     """
     Plots the activities found in config.ACTIVITY_DIR
     """

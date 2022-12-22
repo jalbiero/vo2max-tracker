@@ -2,7 +2,7 @@ import logging
 from os import listdir, path
 from typing import Generator, List
 
-from vo2max_tracker.core.config import BaseConfig
+from vo2max_tracker.core.config import Config
 from vo2max_tracker.fit.decoder import FitData
 from vo2max_tracker.fit.errors import FitError
 from vo2max_tracker.fit.reader import FitCacheReader, FitReader, ReaderManager
@@ -22,7 +22,7 @@ def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
                 yield fullname
 
 
-def fit_data_provider(config: BaseConfig) -> Generator[FitData, None, None]:
+def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
     """
     Returns a lazy sequence of FitData based on the FIT files found in the
     config.ACTIVITY_DIR. There is no guaranteed order in the sequence, it's all 

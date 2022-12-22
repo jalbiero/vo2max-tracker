@@ -11,7 +11,7 @@ from zipfile import ZipFile, ZipInfo
 
 from garmin_fit_sdk import Stream
 
-from vo2max_tracker.core.config import BaseConfig
+from vo2max_tracker.core.config import Config
 from vo2max_tracker.fit.decoder import FitData, FitDecoder
 from vo2max_tracker.fit.errors import FitReaderError
 from vo2max_tracker.version import __version__
@@ -72,7 +72,7 @@ class FitCacheReader(FitReader):
     Cache proxy reader (Fit SDK is really slow in Python so a cache is mandatory)
     """
 
-    def __init__(self, reader: FitReader, config: BaseConfig) -> None:
+    def __init__(self, reader: FitReader, config: Config) -> None:
         self.__external_reader = reader
         self.__config = config
 
@@ -122,7 +122,7 @@ class ReaderManager:
 
         self.__strategy: Dict[str, FitReader] = {
             ".fit": raw_fit_reader,
-            ".FIT": raw_fit_reader, # Ancient devices like FR-920 use files in capital letters
+            ".FIT": raw_fit_reader,  # Ancient devices like FR-920 use files in capital letters
             ".zip": ZipFitReader(),
         }
 
