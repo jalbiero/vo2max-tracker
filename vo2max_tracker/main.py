@@ -43,9 +43,10 @@ def setup_log(config: Config) -> None:
                         format="%(asctime)s %(levelname)8s [%(module)s] %(message)s")
 
     if config.LOG_TO_CONSOLE:
+        # All WARN/ERROR messages are cloned to screen
         handler = logging.StreamHandler()
-        handler.setLevel(config.LOG_LEVEL)
-        formatter = logging.Formatter("%(asctime)s %(message)s")
+        handler.setLevel(logging.WARN)
+        formatter = logging.Formatter("%(message)s")
         handler.setFormatter(formatter)
         logging.getLogger().addHandler(handler)
 
@@ -69,16 +70,10 @@ def main() -> None:
 
         else:
             config.RECREATE_CACHE = args.rcache
-
-            if args.rcache:
-                print("Wait, recreating FIT cache...")
-
             plot(config)
 
     except Exception as ex:  # pylint: disable=broad-except
-        msg = f"Error: {ex}\n{traceback.format_exc()}"
-        logging.error(msg)
-        print(msg)
+        logging.error(f"Error: {ex}\n{traceback.format_exc()}")
         sys.exit(1)
 
 

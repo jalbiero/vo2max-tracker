@@ -8,17 +8,17 @@ class Config:
     as its default values 
     """
 
-    ACTIVITY_DIR: str = "./activities_920"
-    CACHE_DIR: str = "./cache_920"
+    ACTIVITY_DIR: str = "./activities"
+    CACHE_DIR: str = "./cache"
 
-    LOG_LEVEL: int = logging.ERROR
+    LOG_LEVEL: int = logging.WARN
     LOG_FILE: str = "./log/vo2max_reader.log"
-    LOG_TO_CONSOLE: bool = False
 
     DPI: Optional[int] = None
     SCATTER: bool = False
     TOOLTIP_ON_HOVER: bool = True
     GROUP_BY_SUBSPORT: bool = True
 
-    # Recreate cache files?
+    # Properties not intended to be set by users
+    LOG_TO_CONSOLE: bool = True
     RECREATE_CACHE: bool = False

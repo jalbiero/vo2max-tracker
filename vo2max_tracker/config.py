@@ -5,7 +5,7 @@ from vo2max_tracker.core.config import Config
 
 class UserConfig(Config):
     """
-    User custom configuration (See BaseConfig class for more details about default values)
+    User's custom configuration (See BaseConfig class for more details about default values)
     """
 
     # Directory where activities are located
@@ -15,13 +15,10 @@ class UserConfig(Config):
     #CACHE_DIR = "./cache"
 
     # Log level (DEBUG, INFO, WARN, ERROR, FATAL, CRITICAL).
-    LOG_LEVEL = logging.DEBUG
+    #LOG_LEVEL = logging.DEBUG
 
     # File to log
     #LOG_FILE = "./log/vo2max_tracker.log"
-
-    # Clone log file to console? (set to False if you plan to use the CSV/JSON feature)
-    #LOG_TO_CONSOLE = True
 
     # If you have a high DPI monitor and the resulting charts are too small
     # you can set this property to 200 (2x zoom) or greater
@@ -31,8 +28,8 @@ class UserConfig(Config):
     #SCATTER = False
 
     # Show tooltip on mouse hover instead of clicking on each point?
-    TOOLTIP_ON_HOVER = False
+    #TOOLTIP_ON_HOVER = False
 
     # When grouping sport, use sub-sport category as part of the group?
     # e.g. When setting it to True, outdoor cycling will be different than indoor cycling
-    GROUP_BY_SUBSPORT = False
+    #GROUP_BY_SUBSPORT = False

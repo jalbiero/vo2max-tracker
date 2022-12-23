@@ -1,7 +1,6 @@
 import json
 import logging
 from abc import ABC, abstractmethod
-from asyncio.log import logger
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from io import BytesIO
@@ -32,7 +31,7 @@ class RawFitReader(FitReader):
         self.__decoder = FitDecoder()
 
     def read(self, file_path: str) -> FitData:
-        logger.info("Reading FIT content from %s file", file_path)
+        logging.info("Reading FIT content from %s file", file_path)
         return self.__decoder.decode_from_file(file_path)
 
 
@@ -46,7 +45,7 @@ class ZipFitReader(FitReader):
         self.__decoder = FitDecoder()
 
     def read(self, file_path: str) -> FitData:
-        logger.info("Looking for a FIT file in %s file", file_path)
+        logging.info("Looking for a FIT file in %s file", file_path)
 
         # If the .zip file contains more than 1 .fit file, only
         # the first one will be used
@@ -81,7 +80,7 @@ class FitCacheReader(FitReader):
             [self.__config.CACHE_DIR, path.basename(file_path) + ".cache"])
 
         if not self.__config.RECREATE_CACHE and path.isfile(cache_path):
-            logger.info("Cache hit for %s", file_path)
+            logging.info("Cache hit for %s", file_path)
             return self._read_cache(cache_path)
 
         data: FitData = self.__external_reader.read(file_path)
@@ -89,7 +88,7 @@ class FitCacheReader(FitReader):
         return data
 
     def _write_cache(self, cache_path: str, fit_data: FitData) -> None:
-        logger.info("Write json cache to %s", cache_path)
+        logging.info("Write json cache to %s", cache_path)
         with open(cache_path, "w") as cache:
             cache_data: CacheData = CacheData(__version__, asdict(fit_data))
 
@@ -97,7 +96,7 @@ class FitCacheReader(FitReader):
             cache.write(json.dumps(asdict(cache_data), default=str))
 
     def _read_cache(self, cache_path: str) -> FitData:
-        logger.info("Read json cache from %s", cache_path)
+        logging.info("Read json cache from %s", cache_path)
 
         with open(cache_path, "r") as cache:
             cache_data: CacheData = CacheData(**json.load(cache))
