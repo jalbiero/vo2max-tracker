@@ -1,3 +1,7 @@
+# Copyright (C) 2022-2023 Javier Albiero (jalbiero)
+# Distributed under the MIT License (see the accompanying LICENSE file
+# or go to http://opensource.org/licenses/MIT).
+
 from vo2max_tracker.core.config import Config
 from vo2max_tracker.fit.decoder import FitData
 from vo2max_tracker.fit.provider import fit_data_provider

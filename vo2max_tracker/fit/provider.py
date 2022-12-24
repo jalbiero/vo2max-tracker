@@ -1,3 +1,7 @@
+# Copyright (C) 2022-2023 Javier Albiero (jalbiero)
+# Distributed under the MIT License (see the accompanying LICENSE file
+# or go to http://opensource.org/licenses/MIT).
+
 import logging
 from os import listdir, path
 from typing import Generator, List
