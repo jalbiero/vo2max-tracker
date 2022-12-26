@@ -18,11 +18,11 @@ class Config:
     LOG_LEVEL: int = logging.WARN
     LOG_FILE: str = "./log/vo2max_reader.log"
 
-    DPI: Optional[int] = None
+    DPI: Optional[int] = 150
     SCATTER: bool = False
-    TOOLTIP_ON_HOVER: bool = True
+    TOOLTIP_ON_HOVER: bool = False
     GROUP_BY_SUBSPORT: bool = True
 
-    # Properties not intended to be set by users
+    # Properties not intended to be directly set by users
     LOG_TO_CONSOLE: bool = True
     RECREATE_CACHE: bool = False

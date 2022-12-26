@@ -17,8 +17,8 @@ _FitValueList = List[_FitValueDict]
 _FitMessageDict = Dict[str, _FitValueList]
 
 # Fit access constants
-# TODO This is requires a redesign (maybe a field provider) because constants are not the
-#      same across devices, especially the ancient ones (I only have FR-920 and FR-920 for testing)
+# TODO This requires a redesign (maybe a field provider) because constants are not the
+#      same across devices, especially the ancient ones (e.g. FR-920)
 
 _SPORT_MESSAGE_ID: str = "sport_mesgs"
 _SPORT_FIELD_ID: str = "sport"
@@ -120,7 +120,7 @@ class FitDecoder:
             result.end_time = session.get(_SESSION_END_TIME_FIELD_ID)
 
             if result.start_time and result.end_time:
-                # duration is alwayas used as str (instead of timedelta)
+                # duration is alwayas used as str (no need to be a timedelta)
                 result.duration = str(result.end_time - result.start_time)
 
             # TODO Distance is in units set in the watch. It would be nice to

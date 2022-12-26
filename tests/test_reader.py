@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 
 from tests.util import is_close
 from vo2max_tracker.fit.decoder import FitData
+from vo2max_tracker.fit.errors import FitReaderError
 from vo2max_tracker.fit.reader import ZipFitReader
 
 
@@ -45,7 +46,22 @@ def test_zip_fit_reader_file_not_found() -> None:
         reader.read("./tests/activities/non-existent-file.zip")
         assert False
 
-    except FileNotFoundError:
+    except FileNotFoundError as ex:
+        print("Error:", ex)  # run with "pytest -s" to see this message
+        assert True
+
+    except:
+        assert False
+
+
+def test_zip_fit_reader_no_fit_inside() -> None:
+    try:
+        reader: ZipFitReader = ZipFitReader()
+        reader.read("./tests/activities/no_fit_inside.zip")
+        assert False
+
+    except FitReaderError as ex:
+        print("Error:", ex)  # run with "pytest -s" to see this message
         assert True
 
     except:

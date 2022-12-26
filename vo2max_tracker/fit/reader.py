@@ -66,7 +66,7 @@ class ZipFitReader(FitReader):
 
 @dataclass
 class CacheData:
-    version: str  # future usage
+    version: str  # future usage, see FitCacheReader._read_cache
     fit_data: Dict[str, Any]
 
 
