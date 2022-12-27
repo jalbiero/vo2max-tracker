@@ -21,7 +21,8 @@ def all() -> None:
 
 def pytest() -> None:
     all()
-    exec(["pytest", "-s"])
+    exec(["pytest"])
+    #exec(["pytest", "-s"])
 
 
 if __name__ == "__main__":

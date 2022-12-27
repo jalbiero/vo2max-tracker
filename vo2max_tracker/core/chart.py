@@ -48,7 +48,7 @@ def _get_plot_data(config: Config) -> _PlotDataDict:
     return plot_dict
 
 
-def _na(value: Optional[_T], fmt: Optional[str] = None) -> Union[_T, str]:
+def _na(value: Union[_T, None], fmt: Optional[str] = None) -> Union[_T, str]:
     """
     Returns the value (with its optional format) if value is not None, otherwise "N/A"
     """
@@ -59,7 +59,7 @@ def _na(value: Optional[_T], fmt: Optional[str] = None) -> Union[_T, str]:
     return value if fmt is None else "{val:{fmt}}".format(val=value, fmt=fmt)
 
 
-def _na_date(value: Optional[date], fmt: str = "%c") -> str:
+def _na_date(value: Union[date, None], fmt: str = "%c") -> str:
     if value is None:
         return _na(value)
 
