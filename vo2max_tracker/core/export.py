@@ -2,29 +2,68 @@
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
-from ast import Dict
+import json
 from dataclasses import asdict
+from datetime import datetime
 from functools import reduce
-from typing import Any
+from typing import Any, List
+
 from vo2max_tracker.core.config import Config
 from vo2max_tracker.fit.decoder import FitData
 from vo2max_tracker.fit.provider import fit_data_provider
 
 
-def to_csv(config: Config, add_header: bool = True):
-    if add_header:
-        print(reduce(lambda a, b: a + ", " + b, asdict(FitData()).keys()))
-        #print("date, sport, sub sport, vo2max")
+def _get_sorted_data(config: Config) -> List[FitData]:
+    # TODO This function needs to load all FIT in memory in order to sort
+    #      them by date. It could be problematic if the user has a lot of activities
+    # TODO A future version could use a sorted container instead of sorting the list at the end
 
-    fit: FitData
-    for fit in fit_data_provider(config):
-        if fit.vo2max is not None and fit.vo2max > 0:
-            fit_dic: Dict[str, Any] = asdict(fit)
+    data: List[FitData] = []
 
-            print(reduce(lambda a, b: str(a) + ", " + str(b), fit_dic.values()))
+    fit_data: FitData
+    for fit_data in fit_data_provider(config):
+        if fit_data.vo2max is not None and fit_data.vo2max > 0:
+            data.append(fit_data)
 
-            #print(f"{fit.start_time}, {fit.sport}, {fit.sub_sport}, {fit.vo2max}")
+    data.sort(key=lambda d: datetime(2000, 1, 1) if d.start_time is None else d.start_time)
+
+    return data
 
 
-def to_json():
-    pass
+def _str(value: Any) -> str:
+    """
+    Converts any value to string. None values will be converted to "" instead of "None"
+    """
+
+    return "" if value is None else str(value)
+
+
+def to_csv(output_file: str, config: Config):
+    """
+    Exports all activities in 'config.ACTIVITY_DIR' to 'output_file' in CSV format 
+    """
+
+    open_mode: str = "w+" if config.CSV_EXPORT_APPEND_OUTPUT else "w"
+
+    with open(output_file, open_mode) as csv:
+        # TODO Check this https://docs.python.org/3/library/os.html#os.linesep (\n for now)
+
+        if config.CSV_EXPORT_ADD_HEADER:
+            header: str = reduce(lambda a, b: a + ", " + b, asdict(FitData()).keys())
+            csv.write(f"{header}\n")
+
+        fit: FitData
+        for fit in _get_sorted_data(config):
+            if fit.vo2max is not None and fit.vo2max > 0:
+                fit_dic: dict[str, Any] = asdict(fit)
+                row: str = reduce(lambda a, b: _str(a) + ", " + _str(b), fit_dic.values())
+                csv.write(f"{row}\n")
+
+
+def to_json(output_file: str, config: Config):
+    """
+    Exports all activities in config.ACTIVITY_DIR to 'output_file' in JSON format 
+    """
+
+    with open(output_file, "x") as out:
+        json.dump([asdict(x) for x in _get_sorted_data(config)], out, default=str)

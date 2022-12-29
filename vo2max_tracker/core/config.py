@@ -23,6 +23,9 @@ class Config:
     TOOLTIP_ON_HOVER: bool = False
     GROUP_BY_SUBSPORT: bool = True
 
+    CSV_EXPORT_ADD_HEADER: bool = True
+    CSV_EXPORT_APPEND_OUTPUT: bool = False
+
     # Properties not intended to be directly set by users
     LOG_TO_CONSOLE: bool = True
     RECREATE_CACHE: bool = False

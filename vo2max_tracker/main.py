@@ -10,33 +10,49 @@ import traceback
 from vo2max_tracker.config import UserConfig
 from vo2max_tracker.core.chart import plot
 from vo2max_tracker.core.config import Config
-from vo2max_tracker.core.export import to_csv
+from vo2max_tracker.core.export import to_csv, to_json
 from vo2max_tracker.version import __version__
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
 
-    parser.add_argument(
+    general_group = parser.add_argument_group(title='General options')
+    export_group = parser.add_argument_group(title='Export options')
+
+    general_group.add_argument(
         "-v",
         "--version",
         help="show VO2MaxReader version",
         default=False,
         action="store_true")
 
-    parser.add_argument(
-        "-c",
-        "--csv",
-        help="Console output of all activities in CSV format",
-        default=False,
-        action="store_true")
-
-    parser.add_argument(
+    general_group.add_argument(
         "-r",
         "--rcache",
         help="Recreate FIT cache. The application start-up will be very slow, be patience.",
         default=False,
         action="store_true")
+
+    export_group.add_argument(
+        "-c",
+        "--csv",
+        help="Export all activities in CSV format",
+        default=False,
+        action="store_true")
+
+    export_group.add_argument(
+        "-j",
+        "--json",
+        help="Export all activities in JSON format",
+        default=False,
+        action="store_true")
+
+    export_group.add_argument(
+        "-o",
+        "--output",
+        help="Output file (when not specified, './export_output.txt' will be used",
+        default="export_output.txt")
 
     return parser
 
@@ -70,7 +86,10 @@ def main() -> None:
             print(__version__)
 
         elif args.csv:
-            to_csv(config, True)
+            to_csv(args.output, config)
+
+        elif args.json:
+            to_json(args.output, config)
 
         else:
             config.RECREATE_CACHE = args.rcache
