@@ -77,7 +77,7 @@ def main() -> None:
     setup_log(config)
 
     try:
-        logging.info(f"Starting VO2Max Tracker, version = {__version__}")
+        logging.debug(f"Starting VO2Max Tracker, version = {__version__}")
 
         parser: argparse.ArgumentParser = build_arg_parser()
         args: argparse.Namespace = parser.parse_args()
@@ -96,7 +96,7 @@ def main() -> None:
             plot(config)
 
     except Exception as ex:  # pylint: disable=broad-except
-        logging.error(f"Error: {ex}\n{traceback.format_exc()}")
+        logging.error(f"Error: {ex}. {traceback.format_exc()}")
         sys.exit(1)
 
 

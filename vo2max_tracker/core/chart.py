@@ -35,12 +35,10 @@ def _get_plot_data(config: Config) -> _PlotDataDict:
 
             if sport not in plot_dict:
                 plot_dict[sport] = [fit]
-
             else:
-                # TODO Date currenty is in UTC, it should be in local zone
                 plot_dict[sport].append(fit)
 
-    # In order to not mess-up the conecting lines between dots,
+    # In order not to mess-up the conecting lines between dots,
     # data must be sorted by time
     if not config.SCATTER:
         for data in plot_dict.values():
@@ -102,12 +100,7 @@ def plot(config: Config) -> None:
             data = artist_dict[sel.artist][data_index]
 
             ann: text.Text = sel.annotation
-            #ann.set_bbox(dict(facecolor='red', alpha=0.9, edgecolor='red'))
             ann.set_bbox(dict(alpha=0.9))
-
-            # ann.set_backgroundcolor('red')
-            # ann.set_color('black')
-            # ann.set_alpha(1)
             ann.set_fontweight('bold')
 
             ann.set_text(

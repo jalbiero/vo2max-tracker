@@ -17,6 +17,7 @@ This simple application tracks the VO2Max value that your device calculates in e
 - Export your activities (only values defined in class FitData are exported)
   - Support for CVS files (easily read by Excel or any other spreedsheet)
   - Support for JSON files
+- Cache of parsing results to improve execution speed  
 
 ## Requirements
 
@@ -34,27 +35,36 @@ This simple application tracks the VO2Max value that your device calculates in e
 5. If you don't want to copy the content, you can edit the file _vo2max_tracker/config.py_ in order to specify where the device folder is located through the property ACTIVITY_DIR)
 6. Execute the application using the provided script for your platform (run_linux.sh, run_mac.sh, or run_win.ps1)
 
-## Run, export
+## Run
 
-In order to run the app just execute one of the provided scripts. e.g. for Linux
+In order to run the app just execute one of the provided scripts via command line or file explorer. Be aware that the first run will take some time due to the following things:
+
+1. It is necessary to download the runtime software dependencies
+2. Decoding (parsing) a FIT file is slow (at least in Python) so dependending on the number of activities you will have to wait. Don't worry because the decoding results are cached so the next time the start up will be almost instant. 
+
+e.g. Run on Linux
 
 ```
 $ ./run_linux.sh
 ```
 
-Export to CVS
+## Export
+
+### Export to CVS
 
 ```
 $ ./run_linux.sh --csv --output my_activities.csv
 ```
 
-Export to JSON
+### Export to JSON
 
 ```
 $ ./run_linux.sh --json --output my_activities.json
 ```
 
-For a full list of options invoke its command line help
+## Help
+
+For a full list of options just invoke its command line help
 
 ```
 $ ./run_linux.sh --help

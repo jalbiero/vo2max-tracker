@@ -15,8 +15,8 @@ from vo2max_tracker.fit.provider import fit_data_provider
 
 
 def _get_sorted_data(config: Config) -> List[FitData]:
-    # TODO This function needs to load all FIT in memory in order to sort
-    #      them by date. It could be problematic if the user has a lot of activities
+    # TODO This function needs to load all FIT in memory in order to sort them by date.
+    #      It could be problematic if the user has a lot of activities.
     # TODO A future version could use a sorted container instead of sorting the list at the end
 
     data: List[FitData] = []
