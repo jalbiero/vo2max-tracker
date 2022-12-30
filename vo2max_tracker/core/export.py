@@ -44,8 +44,8 @@ def to_csv(output_file: str, config: Config):
     Exports all activities in 'config.ACTIVITY_DIR' to 'output_file' in CSV format 
     """
 
-    # Append or overwrite?
-    open_mode: str = "w+" if config.CSV_EXPORT_APPEND_OUTPUT else "w"
+    # Append if exists?
+    open_mode: str = "w+" if config.CSV_EXPORT_APPEND_OUTPUT else "x"
 
     with open(output_file, open_mode) as csv:
         # TODO Check this https://docs.python.org/3/library/os.html#os.linesep (\n for now)
