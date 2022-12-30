@@ -85,7 +85,7 @@ Export options:
 
 ## For developers
 
-The following assumes a terminal located in *vo2max_tracker* directory 
+The following assumes a terminal located in *vo2max-tracker* directory 
 
 ### Install full dependencies
 
