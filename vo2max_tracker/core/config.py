@@ -15,7 +15,7 @@ class Config:
     ACTIVITY_DIR: str = "./activities"
     CACHE_DIR: str = "./cache"
 
-    LOG_LEVEL: int = logging.WARN
+    LOG_LEVEL: int = logging.INFO
     LOG_FILE: str = "./log/vo2max_reader.log"
 
     DPI: Optional[int] = 150

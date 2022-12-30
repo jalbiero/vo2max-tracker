@@ -18,6 +18,7 @@ def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
     the provided directory
     """
 
+    file: str
     for file in listdir(dir):
         fullname: str = path.join(dir, file)
         if path.isfile(fullname):
@@ -34,14 +35,16 @@ def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
     """
 
     if config.RECREATE_CACHE:
-        logging.warn("Wait, recreating FIT cache...")
+        logging.info("Wait, recreating FIT cache...")
 
     reader_mgr: ReaderManager = ReaderManager()
 
-    logging.info("Looking for FIT files in %s", config.ACTIVITY_DIR)
+    logging.debug("Looking for FIT files in %s", config.ACTIVITY_DIR)
+
+    file: str
     for file in _file_provider(config.ACTIVITY_DIR, reader_mgr.get_registered_extensions()):
         try:
-            logging.info("Found %s file", file)
+            logging.debug("Found %s file", file)
             file_ext: str = path.splitext(file)[1]
 
             reader: FitReader = FitCacheReader(reader_mgr.get_reader(file_ext), config)

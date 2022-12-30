@@ -3,6 +3,7 @@
 # or go to http://opensource.org/licenses/MIT).
 
 import json
+import logging
 from dataclasses import asdict
 from datetime import datetime
 from functools import reduce
@@ -43,6 +44,7 @@ def to_csv(output_file: str, config: Config):
     Exports all activities in 'config.ACTIVITY_DIR' to 'output_file' in CSV format 
     """
 
+    # Append or overwrite?
     open_mode: str = "w+" if config.CSV_EXPORT_APPEND_OUTPUT else "w"
 
     with open(output_file, open_mode) as csv:
@@ -52,10 +54,13 @@ def to_csv(output_file: str, config: Config):
             header: str = reduce(lambda a, b: a + ", " + b, asdict(FitData()).keys())
             csv.write(f"{header}\n")
 
-        fit: FitData
-        for fit in _get_sorted_data(config):
-            if fit.vo2max is not None and fit.vo2max > 0:
-                fit_dic: dict[str, Any] = asdict(fit)
+        sorted_data: List[FitData] = _get_sorted_data(config)
+        logging.info(f"Exporting {len(sorted_data)} activities in CSV format to {output_file}")
+
+        fit_data: FitData
+        for fit_data in sorted_data:
+            if fit_data.vo2max is not None and fit_data.vo2max > 0:
+                fit_dic: dict[str, Any] = asdict(fit_data)
                 row: str = reduce(lambda a, b: _str(a) + ", " + _str(b), fit_dic.values())
                 csv.write(f"{row}\n")
 
@@ -65,5 +70,8 @@ def to_json(output_file: str, config: Config):
     Exports all activities in config.ACTIVITY_DIR to 'output_file' in JSON format 
     """
 
-    with open(output_file, "x") as out:
-        json.dump([asdict(x) for x in _get_sorted_data(config)], out, default=str)
+    with open(output_file, "x") as outf:
+        sorted_data: List[FitData] = _get_sorted_data(config)
+        logging.info(f"Exporting {len(sorted_data)} activities in JSON format to {output_file}")
+
+        json.dump([asdict(fit_data) for fit_data in sorted_data], outf, default=str)

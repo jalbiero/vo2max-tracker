@@ -76,12 +76,12 @@ class FitDecoder:
     """
 
     def decode_from_file(self, path_file: str) -> FitData:
-        logging.info("Decoding FIT file = %s", path_file)
+        logging.debug("Decoding FIT file = %s", path_file)
         return self.decode_from_content(Stream.from_file(path_file), path_file)
 
     def decode_from_content(self, stream: Stream, source_file_hint: str = None) -> FitData:
         source: str = "N/A" if source_file_hint is None else source_file_hint
-        logging.info("Decoding FIT content. Source file = %s", source)
+        logging.debug("Decoding FIT content. Source file = %s", source)
 
         decoder: Decoder = Decoder(stream)
 

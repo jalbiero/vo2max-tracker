@@ -35,7 +35,7 @@ class RawFitReader(FitReader):
         self.__decoder = FitDecoder()
 
     def read(self, file_path: str) -> FitData:
-        logging.info("Reading FIT content from %s file", file_path)
+        logging.debug("Reading FIT content from %s file", file_path)
         return self.__decoder.decode_from_file(file_path)
 
 
@@ -49,7 +49,7 @@ class ZipFitReader(FitReader):
         self.__decoder = FitDecoder()
 
     def read(self, file_path: str) -> FitData:
-        logging.info("Looking for a FIT file in %s file", file_path)
+        logging.debug("Looking for a FIT file in %s file", file_path)
 
         # If the .zip file contains more than 1 .fit file, only
         # the first one will be used
@@ -57,7 +57,7 @@ class ZipFitReader(FitReader):
             file: ZipInfo
             for file in zip.infolist():
                 if file.filename.endswith(".fit"):
-                    logging.info("Found %s in %s", file.filename, file_path)
+                    logging.debug("Found %s in %s", file.filename, file_path)
                     content: Stream = Stream.from_bytes_io(BytesIO(zip.read(file)))
                     return self.__decoder.decode_from_content(content)
 
@@ -84,7 +84,7 @@ class FitCacheReader(FitReader):
             [self.__config.CACHE_DIR, path.basename(file_path) + ".cache"])
 
         if not self.__config.RECREATE_CACHE and path.isfile(cache_path):
-            logging.info("Cache hit for %s", file_path)
+            logging.debug("Cache hit for %s", file_path)
             return self._read_cache(cache_path)
 
         data: FitData = self.__external_reader.read(file_path)
@@ -92,7 +92,7 @@ class FitCacheReader(FitReader):
         return data
 
     def _write_cache(self, cache_path: str, fit_data: FitData) -> None:
-        logging.info("Write json cache to %s", cache_path)
+        logging.debug("Write json cache to %s", cache_path)
         with open(cache_path, "w") as cache:
             cache_data: CacheData = CacheData(__version__, asdict(fit_data))
 
@@ -100,7 +100,7 @@ class FitCacheReader(FitReader):
             cache.write(json.dumps(asdict(cache_data), default=str))
 
     def _read_cache(self, cache_path: str) -> FitData:
-        logging.info("Read json cache from %s", cache_path)
+        logging.debug("Read json cache from %s", cache_path)
 
         with open(cache_path, "r") as cache:
             cache_data: CacheData = CacheData(**json.load(cache))

@@ -63,9 +63,9 @@ def setup_log(config: Config) -> None:
                         format="%(asctime)s %(levelname)8s [%(module)s] %(message)s")
 
     if config.LOG_TO_CONSOLE:
-        # All WARN/ERROR messages are cloned to screen
+        # All INFO/WARN/ERROR messages are cloned to screen
         handler = logging.StreamHandler()
-        handler.setLevel(logging.WARN)
+        handler.setLevel(logging.INFO)
         formatter = logging.Formatter("%(message)s")
         handler.setFormatter(formatter)
         logging.getLogger().addHandler(handler)
@@ -77,7 +77,7 @@ def main() -> None:
     setup_log(config)
 
     try:
-        logging.info(f"** Starting app, version = {__version__} **")
+        logging.info(f"Starting VO2Max Tracker, version = {__version__}")
 
         parser: argparse.ArgumentParser = build_arg_parser()
         args: argparse.Namespace = parser.parse_args()
