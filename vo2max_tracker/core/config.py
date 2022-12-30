@@ -29,3 +29,14 @@ class Config:
     # Properties not intended to be directly set by users
     LOG_TO_CONSOLE: bool = True
     RECREATE_CACHE: bool = False
+
+    # TODO
+    # Manual converter factors until units will be retrieved from FIT file
+    # Note: These will apply to all FIT files so if one fit has distance in km
+    # and another in miles, you will get wrong results. Use them at your own risk
+    #
+    # DISTANCE_FACTOR: Optional[float] = None
+    # DISTANCE_UNIT: Optional[str] = None
+    #
+    # TEMPERATURE_FACTOR: Optional[float] = None
+    # TEMPERATURE_UNIT: Optional[str] = None

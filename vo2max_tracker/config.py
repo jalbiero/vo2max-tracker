@@ -21,7 +21,7 @@ class UserConfig(Config):
     # Log level (DEBUG, INFO, WARN, ERROR, FATAL, CRITICAL). Default = Logging.INFO
     #LOG_LEVEL = logging.DEBUG
 
-    # File to log. Default = "./log/vo2max_tracker.log" 
+    # File to log. Default = "./log/vo2max_tracker.log"
     #LOG_FILE = "./log/vo2max_tracker.log"
 
     # If you have a high DPI monitor and the resulting charts are too small

@@ -111,7 +111,7 @@ def plot(config: Config) -> None:
             ann.set_fontweight('bold')
 
             ann.set_text(
-                f"[{_na(data.sport)}:{_na(data.sub_sport)}]\n"
+                f"[{_na(data.sport)}-{_na(data.sub_sport)}]\n"
                 "\n"
                 f"VO2Max = {_na(data.vo2max, '.4f')}\n"
                 f"Date = {_na_date(data.start_time)}\n"
