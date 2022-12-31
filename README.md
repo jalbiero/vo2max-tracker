@@ -95,7 +95,9 @@ Export options:
 
 ## For developers
 
-The following assumes a terminal located in *vo2max-tracker* directory 
+If you use [VSCode](https://code.visualstudio.com/) or [VSCodium](https://vscodium.com/) for development, you must use a virtual environment inside the project (e.g. vo2max-tracker/.venv directory) as noted in this [stack overflow answer](https://stackoverflow.com/a/64434542)
+
+The following examples assume a terminal located in *vo2max-tracker* directory 
 
 ### Install full dependencies
 
