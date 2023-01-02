@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# jalbiero
+activities/*.fit
+cache/*.cache
+log/*.log
