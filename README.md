@@ -160,7 +160,7 @@ It is quite possible that you have a High DPI monitor. Try increasing the value 
 
 If you use [VSCode](https://code.visualstudio.com/) or [VSCodium](https://vscodium.com/) for development, you must use a virtual environment inside the project (e.g. vo2max-tracker/.venv directory) as noted in this [stack overflow answer](https://stackoverflow.com/a/64434542)
 
-The following examples assume a terminal located in *vo2max-tracker* directory 
+The following examples assume a terminal located in *vo2max-tracker* directory (or _vo2max-tracker-main_ if you downloaded the .zip file instead of cloning the repository)
 
 ### Install full dependencies
 
@@ -177,7 +177,7 @@ $ poetry run app
 ### Run tests and code tools (isort, autopep and mypy)
 
 ```bash
-$ poetry run tests
+$ poetry run tests [optional_arguments_for_pytest]
 ```
 
 ### Run tools without tests

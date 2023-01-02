@@ -79,9 +79,13 @@ class FitCacheReader(FitReader):
         self.__external_reader = reader
         self.__config = config
 
+    @staticmethod
+    def file_cache_ext():
+        return ".cache"
+
     def read(self, file_path: str) -> FitData:
         cache_path: str = sep.join(
-            [self.__config.CACHE_DIR, path.basename(file_path) + ".cache"])
+            [self.__config.CACHE_DIR, path.basename(file_path) + FitCacheReader.file_cache_ext()])
 
         if not self.__config.RECREATE_CACHE and path.isfile(cache_path):
             logging.debug("Cache hit for %s", file_path)
