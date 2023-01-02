@@ -10,7 +10,7 @@
   - [Configuration](#configuration)
   - [Disclaimer](#disclaimer)
   - [Troubleshooting](#troubleshooting)
-    - [Error when trying to execute .\run_win.ps1 on Windows](#error-when-trying-to-execute-run_winps1-on-windows)
+    - [Error when trying to execute _run_win.ps1_ on Windows](#error-when-trying-to-execute-run_winps1-on-windows)
     - [Chart is too small](#chart-is-too-small)
   - [Other related tools](#other-related-tools)
   - [For developers](#for-developers)
@@ -120,7 +120,7 @@ VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2
 
 ## Troubleshooting
 
-### Error when trying to execute .\run_win.ps1 on Windows
+### Error when trying to execute _run_win.ps1_ on Windows
 
 If you get the following error:
 
@@ -134,17 +134,15 @@ At line:1 char:1
 + ~~~~~~~~~~~~~
     + CategoryInfo          : SecurityError: (:) [], PSSecurityException
     + FullyQualifiedErrorId : UnauthorizedAccess
-
 ```
 
-Then you need to change the execution policy with the following PowerShell Cmdlet:
+Then you need to change the execution policy. Open a PowerShell terminal and paste the following Cmdlet:
 
 ```powershell
-PS C:\Users\Javier> Set-ExecutionPolicy -Scope "CurrentUser" -ExecutionPolicy "RemoteSigned" 
-
+Set-ExecutionPolicy -Scope "CurrentUser" -ExecutionPolicy "RemoteSigned" 
 ```
 
-If anyone know how to change the execution policy just for _run_win.ps1_ script (instead of all scripts on the system), please let me know, thanks in advance.
+If anyone know how to change the execution policy just for _run_win.ps1_ script (instead of all scripts for the current user), please let me know, thanks in advance.
 
 ### Chart is too small
 
