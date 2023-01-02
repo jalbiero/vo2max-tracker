@@ -57,7 +57,7 @@ def test_decode_from_file() -> None:
 # def test_decode_from_ancient_device() -> None:
 #     decoder: FitDecoder = FitDecoder()
 
-#     data: FitData = decoder.decode_from_file("./tests/activities/cycling_fr920.fit")
+#     data: FitData = decoder.decode_from_file("./tests/activities/cycling_outdoor_fr920.FIT")
 
 #     assert data.start_time == datetime(2022, 10, 23, 17, 36, 12, tzinfo=timezone.utc)
 #     assert data.end_time == datetime(2022, 10, 23, 18, 21, 5, tzinfo=timezone.utc)
