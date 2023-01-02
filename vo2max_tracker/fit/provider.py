@@ -34,10 +34,19 @@ def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
     depends on the order of the files in the file system.
     """
 
-    if config.RECREATE_CACHE:
-        logging.info("Wait, recreating FIT cache...")
-
     reader_mgr: ReaderManager = ReaderManager()
+
+    if config.RECREATE_CACHE:
+        logging.info("Wait while recreating FIT cache...")
+
+    else:
+        num_of_act: int = sum(1 for _ in _file_provider(config.ACTIVITY_DIR, reader_mgr.get_registered_extensions()))
+        num_of_cached_act: int = sum(1 for _ in _file_provider(config.CACHE_DIR, [FitCacheReader.file_cache_ext()]))
+
+        new_activities: int = num_of_act - num_of_cached_act
+
+        if new_activities > 0:
+            logging.info(f"Detected {new_activities} new activit(y/ies). Wait while it is/they are processed")
 
     logging.debug("Looking for FIT files in %s", config.ACTIVITY_DIR)
 
