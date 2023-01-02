@@ -30,7 +30,7 @@ def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
 def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
     """
     Returns a lazy sequence of FitData based on the FIT files found in the
-    config.ACTIVITY_DIR. There is no guaranteed order in the sequence, it's all 
+    config.ACTIVITY_DIR. There is no guaranteed order in the sequence, it  
     depends on the order of the files in the file system.
     """
 
