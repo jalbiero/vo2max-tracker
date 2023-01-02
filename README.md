@@ -36,7 +36,7 @@ This simple application tracks the VO2Max value that your device has calculated 
 - Activities 
   - Support for raw .fit files (activities stored in your device) 
   - Support for compressed fit files (.zip files) (activities exported from [Garmin Connect](https://connect.garmin.com/))
-- Export your activities (only values defined in class FitData are exported)
+- Export your activities (only values defined in [class FitData](vo2max_tracker/fit/decoder.py) are exported)
   - Support for CVS files (easily read by Excel or any other spreedsheet)
   - Support for JSON files
 - Cache of parsing results to improve execution speed  

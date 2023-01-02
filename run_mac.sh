@@ -4,10 +4,11 @@
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
-poetry show > /dev/null 2>&1
+# Check if there is an associated virtual environment (dependencies downloaded)
+cmdOutput=$(poetry env list)
 
-if [[ $? != 0 ]]; then
+if [[ "$cmdOutput" == "" ]]; then
     poetry install --only main
 fi
 
-poetry run app $@
+poetry run app "$@"
