@@ -3,6 +3,7 @@
 # or go to http://opensource.org/licenses/MIT).
 
 from subprocess import CompletedProcess, run
+from sys import argv
 from typing import List
 
 
@@ -21,8 +22,7 @@ def all() -> None:
 
 def pytest() -> None:
     all()
-    exec(["pytest"])
-    #exec(["pytest", "-s"])
+    exec(["pytest", *argv[1:]])  # extra arguments passed to pytest. e.g. poetry run tests -v -s
 
 
 if __name__ == "__main__":

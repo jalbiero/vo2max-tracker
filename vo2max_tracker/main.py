@@ -66,7 +66,7 @@ def setup_log(config: Config) -> None:
         # All INFO/WARN/ERROR messages are cloned to screen
         handler = logging.StreamHandler()
         handler.setLevel(logging.INFO)
-        formatter = logging.Formatter("%(message)s")
+        formatter = logging.Formatter("> %(message)s")
         handler.setFormatter(formatter)
         logging.getLogger().addHandler(handler)
 
