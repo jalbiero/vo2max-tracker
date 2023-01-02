@@ -1,8 +1,30 @@
+- [VO2Max Tracker](#vo2max-tracker)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Run](#run)
+  - [Export](#export)
+    - [Export to CVS](#export-to-cvs)
+    - [Export to JSON](#export-to-json)
+  - [Help](#help)
+  - [Configuration](#configuration)
+  - [Disclaimer](#disclaimer)
+  - [Troubleshooting](#troubleshooting)
+    - [Error when trying to execute .\run_win.ps1 on Windows](#error-when-trying-to-execute-run_winps1-on-windows)
+    - [Chart is too small](#chart-is-too-small)
+  - [Other related tools](#other-related-tools)
+  - [For developers](#for-developers)
+    - [Install full dependencies](#install-full-dependencies)
+    - [Run application](#run-application)
+    - [Run tests and code tools (isort, autopep and mypy)](#run-tests-and-code-tools-isort-autopep-and-mypy)
+    - [Run tools without tests](#run-tools-without-tests)
+
+
 # VO2Max Tracker
 
-Garmin (devices and connect app/website) does not show your VO2Max as a floating point number. Instead it shows it as an integer value, so it can be difficult to see what your device really measures in each training session.
+Garmin (devices and connect app/website) does not show your VO2Max as a floating point number. Instead it shows it as an integer value, so it can be difficult to see what your device really measures in each training session in order get a more precise feedback.
 
-This simple application tracks the VO2Max value that your device calculates in each training session. Be aware that the VO2Max showed by your device (or Garmin Connect) can differ from the one that was calculated. e.g. My running V02max is 52, but my watch was calculating values ranging from 51.20 to 51.64 for the last 6 weeks. 
+This simple application tracks the VO2Max value that your device has calculated in each training session. Be aware that the VO2Max showed by your device status (or Garmin Connect) can differ from the one that was measured. e.g. My current running V02max is 52 (at the moment of writing), but my watch was calculating values ranging from 51.20 to 51.64 for the last 6 weeks (actually, when my VO2Max changed from 51 to 52, the measured value was not greater than 52).
 
 ## Features
 
@@ -31,7 +53,7 @@ This simple application tracks the VO2Max value that your device calculates in e
 1. Install Python and Poetry as noted in previous section
 2. Download this project from [git](https://github.com/jalbiero/vo2max-tracker/archive/refs/heads/main.zip), decompress the .zip file wherever you want in your PC.
 3. Connect your device, 
-4. Copy the content of the device folder _activity_ (or _ACTIVITY_) into the project folder _activities_ (you can change this location see the file _vo2max_tracker/config.py_, look for the property ACTIVITY_DIR)
+4. Copy the content of the device folder _activity_ (or _ACTIVITY_) into the project folder _activities_ (you can change this default location if you want, see [Configuration](#configuration))
 5. If you do not want to copy the activities from your device, you can download them from [Garmin Connect](https://connect.garmin.com/modern/) (one by one). Just select/view the activity you want to download, click on the upper right gear and select "Export Original". The zipped activity should be saved in the aforementioned _activity_ folder. It is not necessary to decompress the file.
 
     ![Export activity](doc/export_activity.png)
@@ -45,7 +67,7 @@ In order to run the application just execute one of the provided scripts via com
 1. It is necessary to download the runtime software dependencies
 2. Decoding (parsing) a FIT file is slow (at least in Python) so dependending on the number of activities you will have to wait. Don't worry, the decoding results are cached so the next time the start up will be almost instant (unless you add new activities that need to be parsed). 
 
-e.g. Run on Linux
+e.g. Run VO2Max Tracker on Linux
 
 ```bash
 $ ./run_linux.sh
@@ -88,9 +110,13 @@ Export options:
                         Output file (when not specified, './export_output.txt' will be used
 ```
 
+## Configuration
+
+For a custom configuration, just edit the file [vo2max_tracker/config.py](vo2max_tracker/config.py) 
+
 ## Disclaimer
 
-VO2Max Tracker was developed and tested on Linux (openSUSE 15.4) with data from Garmin FR-945 and FR-920. Older devices like the latter currently have partial support, so it is possible that no all information will be shown. VO2Max Tracker was also tested on Windows 10. I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
+VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2022-10/Python 3.9.13) with data from Garmin FR-945 and FR-920. Older devices like the latter currently have partial support, so it is possible that no all information will be shown on the tooltip. VO2Max Tracker was also tested on Windows 10 (Python 3.11.1). I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
 
 ## Troubleshooting
 
@@ -119,6 +145,10 @@ PS C:\Users\Javier> Set-ExecutionPolicy -Scope "CurrentUser" -ExecutionPolicy "R
 ```
 
 If anyone know how to change the execution policy just for _run_win.ps1_ script (instead of all scripts on the system), please let me know, thanks in advance.
+
+### Chart is too small
+
+It is quite possible that you have a High DPI monitor. Try increasing the value of **DPI** property in the [configuration file](vo2max_tracker/config.py). A normal value is 100, but, as a sort of compromise between high and low resolution monitors, the default one was set to 150 (1.5 x). Try setting it to 200 (2x) or greater. 
 
 ## Other related tools
 

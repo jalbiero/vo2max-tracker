@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Copyright (C) 2022-2023 Javier Albiero (jalbiero)
 # Distributed under the MIT License (see the accompanying LICENSE file

@@ -44,4 +44,4 @@ class UserConfig(Config):
 
     # Append data to an already existent file?. Default = False
     # When set to False, the export will fail if the output file already exists
-    #CSV_EXPORT_APPEND_OUTPUT: bool = True
+    #CSV_EXPORT_APPEND_OUTPUT = True
