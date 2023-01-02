@@ -2,10 +2,11 @@
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
-poetry show *> $null
+# Check if there is an associated virtual environment (dependencies downloaded)
+$cmdOutput = poetry env list
 
-if ($LastExitCode -ne 0) {
+if ([string]::IsNullOrEmpty($cmdOutput)) {
     poetry install --only main
-}  
+}
 
 poetry run app @args
