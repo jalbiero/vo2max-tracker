@@ -25,5 +25,9 @@ def pytest() -> None:
     exec(["pytest", *argv[1:]])  # extra arguments passed to pytest. e.g. poetry run tests -v -s
 
 
+def docker_build() -> None:
+    exec(["poetry", "build"])
+    exec(["docker", "build", "."])
+
 if __name__ == "__main__":
     all()

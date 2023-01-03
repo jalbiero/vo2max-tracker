@@ -22,6 +22,7 @@ ignore_missing_imports = true
 app = "vo2max_tracker.main:main"
 tools = "scripts.tools:all"
 tests = "scripts.tools:pytest"
+docker_build = "scripts.tools:docker_build"
 
 [tool.poetry.dependencies]
 python = "^3.9"
