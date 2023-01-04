@@ -116,7 +116,7 @@ For a custom configuration, just edit the file [vo2max_tracker/config.py](vo2max
 
 ## Disclaimer
 
-VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2022-10/Python 3.9.13) with data from Garmin FR-945 and FR-920. Older devices like the latter currently have partial support, so it is possible that no all information will be shown on the tooltip. VO2Max Tracker was also tested on Windows 10 (Python 3.11.1). I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
+VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2022-10/Python 3.9.13) with data from Garmin FR-945 (firmware 11.60) and FR-920 (firmware 10.20). Older devices like the latter currently have partial support, so it is possible that no all information will be shown on the tooltip. VO2Max Tracker was also tested on Windows 10 (Python 3.11.1). I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
 
 ## Troubleshooting
 
