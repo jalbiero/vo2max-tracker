@@ -4,6 +4,9 @@
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
+scriptDir=${0:a:h}
+pushd $scriptDir
+
 # Check if there is an associated virtual environment (dependencies downloaded)
 cmdOutput=$(poetry env list)
 
@@ -12,3 +15,5 @@ if [[ "$cmdOutput" == "" ]]; then
 fi
 
 poetry run app "$@"
+
+popd

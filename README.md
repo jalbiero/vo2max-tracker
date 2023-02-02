@@ -67,10 +67,10 @@ In order to run the application just execute one of the provided scripts via com
 1. It is necessary to download the runtime software dependencies
 2. Decoding (parsing) a FIT file is slow (at least in Python) so dependending on the number of activities you will have to wait. Don't worry, the decoding results are cached so the next time the start up will be almost instant (unless you add new activities that need to be parsed). 
 
-e.g. Run VO2Max Tracker on Linux
+e.g. Run VO2Max Tracker on Linux (APP_DIRECTORY is where you downloaded the app)
 
 ```bash
-$ ./run_linux.sh
+$ APP_DIRECTORY/run_linux.sh
 ```
 
 ## Export
@@ -78,13 +78,13 @@ $ ./run_linux.sh
 ### Export to CVS
 
 ```bash
-$ ./run_linux.sh --csv --output my_activities.csv
+$ APP_DIRECTORY/run_linux.sh --csv --output my_activities.csv
 ```
 
 ### Export to JSON
 
 ```bash
-$ ./run_linux.sh --json --output my_activities.json
+$ APP_DIRECTORY/run_linux.sh --json --output my_activities.json
 ```
 
 ## Help
@@ -92,7 +92,7 @@ $ ./run_linux.sh --json --output my_activities.json
 For a full list of options just invoke its command line help
 
 ```bash
-$ ./run_linux.sh --help
+$ APP_DIRECTORY/run_linux.sh --help
 
 usage: app [-h] [-v] [-r] [-c] [-j] [-o OUTPUT]
 
@@ -116,7 +116,7 @@ For a custom configuration, just edit the file [vo2max_tracker/config.py](vo2max
 
 ## Disclaimer
 
-VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2022-10/Python 3.9.13) with data from Garmin FR-945 and FR-920. Older devices like the latter currently have partial support, so it is possible that no all information will be shown on the tooltip. VO2Max Tracker was also tested on Windows 10 (Python 3.11.1). I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
+VO2Max Tracker was developed and tested on Linux (openSUSE 15.4 with Anaconda3 2022-10/Python 3.9.13, bash 4.4.23, zsh 5.6 and PowerShell for Linux 7.2.3) with data from Garmin FR-945 and FR-920. Older devices like the latter currently have partial support, so it is possible that no all information will be shown on the tooltip. VO2Max Tracker was also tested on Windows 10 (Python 3.11.1). I am sorry, but I do not have a Mac, so let me know if you have any issue on macOS.
 
 ## Troubleshooting
 
