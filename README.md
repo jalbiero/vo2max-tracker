@@ -44,7 +44,7 @@ This simple application tracks the VO2Max value that your device has calculated 
 
 ## Interpreting results
 
-Let's se the following chart:
+Let's see the following chart:
 
   ![Chart plot](doc/chart_interpreting_results.png)
 
