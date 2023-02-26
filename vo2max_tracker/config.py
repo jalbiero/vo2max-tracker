@@ -39,6 +39,9 @@ class UserConfig(Config):
     # e.g. When setting it to True, outdoor cycling will be different than indoor cycling
     #GROUP_BY_SUBSPORT = False
 
+    # Sports that match the specified regex won't be shown in the chart
+    #IGNORE_SPORT_REGEX = "walking*"
+
     # Add header as a first row of data?. Default = True
     #CSV_EXPORT_ADD_HEADER = False
 

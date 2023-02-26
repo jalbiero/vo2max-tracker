@@ -22,6 +22,7 @@ class Config:
     SCATTER: bool = False
     TOOLTIP_ON_HOVER: bool = False
     GROUP_BY_SUBSPORT: bool = True
+    IGNORE_SPORT_REGEX: Optional[str] = None
 
     CSV_EXPORT_ADD_HEADER: bool = True
     CSV_EXPORT_APPEND_OUTPUT: bool = False

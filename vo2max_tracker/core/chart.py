@@ -3,6 +3,7 @@
 # or go to http://opensource.org/licenses/MIT).
 
 import logging
+import re
 from datetime import date, datetime
 from typing import Any, Callable, Dict, List, Optional, TypeVar, Union
 
@@ -32,6 +33,15 @@ def _get_plot_data(config: Config) -> _PlotDataDict:
     for fit in fit_data_provider(config):
         if fit.vo2max is not None and fit.vo2max > 0:
             sport: str = f"{fit.sport}-{fit.sub_sport}" if config.GROUP_BY_SUBSPORT else f"{fit.sport}"
+
+            # Ignore the current sport?
+            if config.IGNORE_SPORT_REGEX is not None:
+                ignore_sport: bool = re.match(config.IGNORE_SPORT_REGEX, sport) is None
+                logging.debug("Ignore sport (%s) due to regex (%s)? %s",
+                              sport, config.IGNORE_SPORT_REGEX, ignore_sport)
+
+                if ignore_sport:
+                    continue
 
             if sport not in plot_dict:
                 plot_dict[sport] = [fit]

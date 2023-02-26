@@ -1,5 +1,6 @@
 - [VO2Max Tracker](#vo2max-tracker)
   - [Features](#features)
+  - [Interpreting results](#interpreting-results)
   - [Requirements](#requirements)
   - [Setup](#setup)
   - [Run](#run)
@@ -24,7 +25,9 @@
 
 Garmin (devices and connect app/website) does not show your VO2Max as a floating point number. Instead it shows it as an integer value, so it can be difficult to see what your device really measures in each training session in order get a more precise feedback.
 
-This simple application tracks the VO2Max value that your device has calculated in each training session. Be aware that the VO2Max showed by your device status (or Garmin Connect) can differ from the one that was measured. e.g. My current running V02max is 52 (at the moment of writing), but my watch was calculating values ranging from 51.20 to 51.64 for the last 6 weeks (actually, when my VO2Max changed from 51 to 52, the measured value was not greater than 52).
+This simple application tracks the VO2Max value that your device has calculated in each training session. Be aware that the VO2Max showed by your device status (or Garmin Connect) can differ from the one that was measured (the value saved in the .FIT activity file). The watch applies a correction after the activity was finalized/saved. See 
+
+e.g. My current running V02max is 52 (at the moment of writing), but my watch was calculating values ranging from 51.20 to 51.64 for the last 6 weeks (actually, when my VO2Max changed from 51 to 52, the measured value was not greater than 52).
 
 ## Features
 
@@ -39,7 +42,21 @@ This simple application tracks the VO2Max value that your device has calculated 
 - Export your activities (only values defined in [class FitData](vo2max_tracker/fit/decoder.py) are exported)
   - Support for CVS files (easily read by Excel or any other spreedsheet)
   - Support for JSON files
-- Cache of parsing results to improve execution speed  
+- Cache of parsing results to improve execution speed
+
+## Interpreting results
+
+Let's se the following chart:
+
+  ![Chart plot](doc/chart_interpreting_results.png)
+
+- Jump in VO2Max
+  - Values greater than "a value and a half" could be considered as a VO2Max improvement (does not always happen, but several values above the "half" for sure will end up in a new VO2Max).
+  - Values stored in the .FIT activiy file are "corrected" by the device after the activity is finalized (in general, the device's VO2Max is one integer point above the .FIT's VO2Max). That's why the current VO2Max of 53 was upgraded to 54 when the calculated .FIT number hit the 52.597 value.
+- Productive trainning status
+  - When there is a breaking point in the VO2Max curve your device will show a **"productive"** status.
+
+
 
 ## Requirements
 
