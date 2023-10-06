@@ -2,4 +2,4 @@
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
