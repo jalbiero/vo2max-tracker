@@ -1,5 +1,10 @@
 # VO2Max Tracker change log
 
+## v0.2.1
+
+- Fix a reported github dependency vulnerability ([Pillow](https://pypi.org/project/Pillow/) package was updated to 10.0.1 in poetry.lock)
+- Fix unit tests
+
 ## v0.2.0
 
 - Add the possibility to ignore some sports (see [config.py](vo2max_tracker/config.py))

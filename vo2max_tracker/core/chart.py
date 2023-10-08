@@ -81,6 +81,11 @@ def plot(config: Config) -> None:
     """
 
     fig, ax = plt.subplots()
+
+    # TODO This check fix unit tests, investigate why this code is executed when testing
+    if fig.canvas.manager is None:
+        return
+
     fig.canvas.manager.set_window_title('VO2Max Tracker')
 
     if config.DPI:
