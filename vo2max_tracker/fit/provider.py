@@ -14,7 +14,7 @@ from vo2max_tracker.fit.reader import FitCacheReader, FitReader, ReaderManager
 
 def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
     """
-    Returns a lazy sequence of file names (with the specified extensions) in 
+    Returns a lazy sequence of file names (with the specified extensions) in
     the provided directory
     """
 
@@ -30,7 +30,7 @@ def _file_provider(dir: str, ext: List[str]) -> Generator[str, None, None]:
 def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
     """
     Returns a lazy sequence of FitData based on the FIT files found in the
-    config.ACTIVITY_DIR. There is no guaranteed order in the sequence, it  
+    config.ACTIVITY_DIR. There is no guaranteed order in the sequence, it
     depends on the order of the files in the file system.
     """
 
@@ -46,7 +46,7 @@ def fit_data_provider(config: Config) -> Generator[FitData, None, None]:
         new_activities: int = num_of_act - num_of_cached_act
 
         if new_activities > 0:
-            logging.info(f"Detected {new_activities} new activit(y/ies). Wait while it is/they are processed")
+            logging.info(f"Detected {new_activities} new activit(y/ies). Wait while (it is/they are) processed")
 
     logging.debug("Looking for FIT files in %s", config.ACTIVITY_DIR)
 

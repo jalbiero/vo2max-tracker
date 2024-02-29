@@ -47,6 +47,10 @@ _VO2MAX_MESSAGE_ID: str = "140"
 _VO2MAX_FIELD_ID: int = 7
 _V02MAX_VALUE_FACTOR: float = 3.5 / 65536.0
 
+# Got via reverse engineering: decoded data crossed with the associated VO2max value from RunAnalyze
+_VO2MAX_MESSAGE_ID_SWIMMING: str = "79"
+_VO2MAX_FIELD_ID_SWIMMING: int = 17
+
 
 @dataclass
 class FitData:
@@ -109,8 +113,14 @@ class FitDecoder:
             result.sub_sport = sport_value[_SPORT_SUB_SPORT_FIELD_ID]
 
         if _VO2MAX_MESSAGE_ID in messages:
-            vo2max_value: _FitValueDict = messages[_VO2MAX_MESSAGE_ID][0]
-            result.vo2max = vo2max_value[_VO2MAX_FIELD_ID] * _V02MAX_VALUE_FACTOR
+            vo2max_value: _FitValueDict
+
+            if result.sport == "swimming":
+                vo2max_value = messages[_VO2MAX_MESSAGE_ID_SWIMMING][0]
+                result.vo2max = vo2max_value[_VO2MAX_FIELD_ID_SWIMMING] * _V02MAX_VALUE_FACTOR
+            else:
+                vo2max_value = messages[_VO2MAX_MESSAGE_ID][0]
+                result.vo2max = vo2max_value[_VO2MAX_FIELD_ID] * _V02MAX_VALUE_FACTOR
 
         if _SESSION_MESSAGE_ID in messages:
             session: _FitValueDict = messages[_SESSION_MESSAGE_ID][0]
