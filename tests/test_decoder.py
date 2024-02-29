@@ -83,3 +83,11 @@ def test_decode_from_ancient_device() -> None:
     assert data.avg_temperature is None
     assert data.max_temperature is None
     assert data.aerobic_te is None
+
+
+def test_decode_v02max_for_swimming() -> None:
+    decoder: FitDecoder = FitDecoder()
+
+    data: FitData = decoder.decode_from_file("./tests/activities/swimming_fr945.fit")
+
+    assert is_close(data.vo2max, 52, 1)
