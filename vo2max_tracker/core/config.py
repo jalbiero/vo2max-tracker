@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2023 Javier Albiero (jalbiero)
+# Copyright (C) 2022-2024 Javier Albiero (jalbiero)
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
@@ -9,7 +9,7 @@ from typing import Optional
 class Config:
     """
     Base class that defines available configuration options as well
-    as its default values 
+    as its default values
     """
 
     ACTIVITY_DIR: str = "./activities"

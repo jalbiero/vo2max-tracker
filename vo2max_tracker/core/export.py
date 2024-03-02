@@ -1,4 +1,4 @@
-# Copyright (C) 2022-2023 Javier Albiero (jalbiero)
+# Copyright (C) 2022-2024 Javier Albiero (jalbiero)
 # Distributed under the MIT License (see the accompanying LICENSE file
 # or go to http://opensource.org/licenses/MIT).
 
@@ -41,7 +41,7 @@ def _str(value: Any) -> str:
 
 def to_csv(output_file: str, config: Config):
     """
-    Exports all activities in 'config.ACTIVITY_DIR' to 'output_file' in CSV format 
+    Exports all activities in 'config.ACTIVITY_DIR' to 'output_file' in CSV format
     """
 
     # Append if exists?
@@ -67,7 +67,7 @@ def to_csv(output_file: str, config: Config):
 
 def to_json(output_file: str, config: Config):
     """
-    Exports all activities in config.ACTIVITY_DIR to 'output_file' in JSON format 
+    Exports all activities in config.ACTIVITY_DIR to 'output_file' in JSON format
     """
 
     with open(output_file, "x") as outf:

@@ -1,5 +1,9 @@
 # VO2Max Tracker change log
 
+## v0.3.1
+
+- Update (c) date and fix poetry versioning
+
 ## v0.3.0
 
 - Add support for swimming
