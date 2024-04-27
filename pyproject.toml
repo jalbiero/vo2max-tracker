@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vo2max-tracker"
-version = "0.3.1"
+version = "0.3.2"
 description = "VO2Max Tracker for Garmin devices"
 authors = ["Javier Albiero <51678384+jalbiero@users.noreply.github.com>"]
 license = "MIT"

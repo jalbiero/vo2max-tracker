@@ -1,5 +1,9 @@
 # VO2Max Tracker change log
 
+## v0.3.2
+
+- Fix a reported github dependency vulnerability ([Pillow](https://pypi.org/project/Pillow/) package was updated to 10.3.0 in poetry.lock)
+
 ## v0.3.1
 
 - Update (c) date and fix poetry versioning
