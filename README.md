@@ -1,3 +1,6 @@
+Archived repository, new location: https://codeberg.org/jalbiero/vo2max-tracker
+---
+
 - [VO2Max Tracker](#vo2max-tracker)
   - [Features](#features)
   - [Interpreting results](#interpreting-results)
